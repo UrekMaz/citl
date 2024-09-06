@@ -42,7 +42,10 @@ function RegistrationForm() {
   ];
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col w-full max-w-md mx-auto px-4 py-4">
+    <form 
+      onSubmit={handleSubmit} 
+      className="flex flex-col w-full max-w-md mx-auto px-4  transform scale-90"
+    >
       <motion.div 
         className="flex flex-col text-base font-semibold text-indigo-900"
         initial={{ opacity: 0, y: -20 }}

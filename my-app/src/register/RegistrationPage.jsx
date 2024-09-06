@@ -5,9 +5,9 @@ import RegistrationForm from './RegisForm.jsx';
 function RegistrationPage() {
   return (
     <div>
-      <main className="overflow-hidden px-16 pb-20 bg-neutral-100 max-md:px-5">
+      <main className="overflow-hidden  bg-neutral-100 max-md:px-5">
         <div className="flex gap-5 max-md:flex-col">
-          <section className="flex flex-col w-6/12 max-md:ml-0 max-md:w-full">
+          <section className="flex flex-col">
             <div>
               <img
                 loading="lazy"
