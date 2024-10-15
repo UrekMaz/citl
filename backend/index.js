@@ -6,8 +6,10 @@ const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const session = require('express-session');
 const { Strategy: GoogleStrategy } = require('passport-google-oauth20');
-const keys = require('./keys.js');
+
 const User = require('./models/newuser.js');
+require('dotenv').config();
+
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -28,8 +30,8 @@ app.use(session({
 
 // Passport configuration for Google OAuth
 passport.use(new GoogleStrategy({
-    clientID: keys.googleClientID,
-    clientSecret: keys.googleClientSecret,
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     callbackURL: "/auth/google/callback"
 }, async (accessToken, refreshToken, profile, done) => {
     try {
@@ -82,7 +84,7 @@ mongoose.connect('mongodb+srv://manual:nrtGC7D6tG2GjS1E@cluster0.60idrdx.mongodb
 app.get("/auth/google", passport.authenticate('google', { scope: ['profile', 'email'] }));
 
 app.get("/auth/google/callback", passport.authenticate('google', { failureRedirect: 'http://localhost:5173/login' }), (req, res) => {
-    res.redirect('http://localhost:5173/homepage');
+    res.redirect('http://localhost:5173/');
 });
 
 // Login route
