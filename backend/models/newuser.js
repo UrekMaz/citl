@@ -1,35 +1,38 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
 
-// Define the User schema
-const newuserSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-    trim: true,
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-    trim: true,
-    lowercase: true,
-    match: [/.+\@.+\..+/, 'Please fill a valid email address'],
-  },
-  userId: { type: String, required: true, unique: true },//username
-
-    passwordHash: { type: String, required: true },
-
-  role: {
-    type: String,
-    enum: ['startup', 'investor'], 
-    default: 'startup', 
-  },
-}, {
-  timestamps: true, // Automatically creates `createdAt` and `updatedAt` fields
+const userSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        
+    },
+    email: {
+        type: String,
+        
+        unique: true
+    },
+    userId: {
+        type: String,
+        
+        unique: true
+    },
+    passwordHash: {
+        type: String, // Remove required field for Google OAuth users
+        required: function() {
+            // Only require passwordHash if the user is not using Google OAuth
+            return !this.googleId;
+        }
+    },
+    role: {
+        type: String,
+        
+    },
+    googleId: {
+        type: String, // Add a field for Google OAuth users
+        unique: true,
+        sparse: true // Make sure to allow null values but keep it unique if present
+    }
 });
 
+const User = mongoose.model('User', userSchema);
 
-const Newuser = mongoose.model('Newuser', newuserSchema);
-
-module.exports = Newuser;
+module.exports = User;

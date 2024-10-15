@@ -39,6 +39,10 @@ function LoginPage() {
     }
   };
 
+  const handleGoogleLogin = () => {
+    window.location.href = 'http://localhost:3000/auth/google';
+  };
+
   return (
     <main className="h-screen w-screen overflow-hidden bg-neutral-100 flex items-center justify-center">
       <div className="flex gap-5 max-md:flex-col h-full w-full -mt-[200px] ml-[100px]">
@@ -66,6 +70,12 @@ function LoginPage() {
             </form>
             {errorMessage && <p className="text-red-600 mt-4">{errorMessage}</p>}
             {successMessage && <p className="text-green-600 mt-4">{successMessage}</p>}
+            <button
+              onClick={handleGoogleLogin}
+              className="mt-4 py-2 px-4 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700"
+            >
+              Sign in with Google
+            </button>
             <p className="text-base text-black mt-4">
               Don't have an account? 
              <Link to="/register" className="font-medium ml-1">Register</Link>
